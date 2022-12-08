@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/React-Testing.git/static/css/main.3ff2ac93.css",
-    "main.js": "/React-Testing.git/static/js/main.0cfba3ba.js",
-    "static/js/787.1fee1fb8.chunk.js": "/React-Testing.git/static/js/787.1fee1fb8.chunk.js",
-    "index.html": "/React-Testing.git/index.html",
-    "main.3ff2ac93.css.map": "/React-Testing.git/static/css/main.3ff2ac93.css.map",
-    "main.0cfba3ba.js.map": "/React-Testing.git/static/js/main.0cfba3ba.js.map",
-    "787.1fee1fb8.chunk.js.map": "/React-Testing.git/static/js/787.1fee1fb8.chunk.js.map"
+    "main.css": "/React-Testing/static/css/main.3ff2ac93.css",
+    "main.js": "/React-Testing/static/js/main.59b1530f.js",
+    "static/js/787.1fee1fb8.chunk.js": "/React-Testing/static/js/787.1fee1fb8.chunk.js",
+    "index.html": "/React-Testing/index.html",
+    "main.3ff2ac93.css.map": "/React-Testing/static/css/main.3ff2ac93.css.map",
+    "main.59b1530f.js.map": "/React-Testing/static/js/main.59b1530f.js.map",
+    "787.1fee1fb8.chunk.js.map": "/React-Testing/static/js/787.1fee1fb8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3ff2ac93.css",
-    "static/js/main.0cfba3ba.js"
+    "static/js/main.59b1530f.js"
   ]
 }
