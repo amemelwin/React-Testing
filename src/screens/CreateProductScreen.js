@@ -1,12 +1,17 @@
 import { useState, useEffect, useCallback, memo } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import Product from "../components/Product";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Routes from "../route/RouteName";
 
 const CreateProductScreen = () => {
-  const [product, setProduct] = useState([{id:1,name:'photo',price:0}]);
+  const [product, setProduct] = useState([
+    {id:1,name:'photo',price:0},
+    {id:2,name:'photo',price:0},
+    {id:3,name:'photo',price:0},
+    {id:4,name:'photo',price:0}
+  ]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [isEdit, setIsEdit] = useState(0);
@@ -70,9 +75,9 @@ const CreateProductScreen = () => {
   const sleep = ms => new Promise( _=>setInterval(_,ms) );
   const addQuantity = useCallback(()=>{
     navigate(Routes.addQty,{state: {
-      name: 'arkar mann aung'
+      product
     }});
-  },[]);
+  },[product]);
   useEffect(() => {
     // console.log("UPName: ",updateName);
     // console.log("UpPrice ",updatePrice);
