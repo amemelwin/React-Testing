@@ -1,11 +1,14 @@
 import { memo } from "react";
-const Button = ({ btnFunc,btnStyle,btnName}) => {
+/*
+    @params onClick @type Function
+    @params style @type String
+    @params text @type String
+*/
+const Button = ({ onClick, style, text }) => {
     return (
       <div className="flex flex-row justify-center">
-            <button onClick={() => btnFunc()} className={btnStyle} >             
-                {btnName}   
-                {console.log({ btnName })}
-                {console.log({ btnStyle })}
+            <button onClick={ onClick } className={ style } >             
+                { text }   
           </button>
       </div>
    )    

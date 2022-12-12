@@ -7,20 +7,21 @@ import Routes from "../route/RouteName";
 // 
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment } from '../store/reducer/counterSlice';
-import { addProduct } from "../store/reducer/productSlice";
+import { addProduct, setProduct } from "../store/reducer/productSlice";
 
 const CreateProductScreen = () => {
   // form store
   const count = useSelector(state => state.counter.value);
-  const products = useSelector(state => state.product.value);
+  const product = useSelector(state => state.product.products);
   const dispatch = useDispatch();
-  // 
-  const [product, setProduct] = useState([
-    {id:1,name:'photo',price:0},
-    {id:2,name:'photo',price:0},
-    {id:3,name:'photo',price:0},
-    {id:4,name:'photo',price:0}
-  ]);
+
+  // const [product, setProducts] = useState([
+  //   {id:1,name:'photo',price:0},
+  //   {id:2,name:'photo',price:0},
+  //   {id:3,name:'photo',price:0},
+  //   {id:4,name:'photo',price:0}
+  // ]);
+
   const defBtnColor = 'cursor-pointer px-5 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded';
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -32,7 +33,14 @@ const CreateProductScreen = () => {
   const add = useCallback(() => {
     if (name && price) {
       console.log("True");
-      setProduct([...product, { id:product.length+1,name, price }]);         
+      // setProduct([...product, { id:product.length+1,name, price }]);         
+      dispatch(
+        setProduct([...product,{ 
+          id:product.length+1,
+          name,
+          price: parseInt(price) 
+        }])
+      );
       setName("");
       setPrice(0);
     } else {
@@ -58,7 +66,10 @@ const CreateProductScreen = () => {
       return;
     }
     const newProduct = product.filter(p => p.id !== id);
-    setProduct(newProduct);
+    // setProduct(newProduct);
+    dispatch(
+      setProduct(newProduct)
+    );
     // console.log("Delete ",id);     
   }, [product,isEdit]);
   const initEdit = useCallback(({ id, name, price }) => {
@@ -68,29 +79,40 @@ const CreateProductScreen = () => {
     setPrice(price);  
     setBtnStyle('cursor-pointer px-5 bg-orange-500 hover:bg-orange-400 text-white font-bold py-2  border-b-4 border-orange-700 hover:border-orange-500 rounded');
     setBtnName("Save");
-    editProduct();
-    
+    // editProduct();
   }, [isEdit,name,price]);
   const editProduct = useCallback(async() => {
-    const newProduct = product.map(p => {
+    // solution
+    let temp = [];
+    product.map(p=>{
       if (p.id === isEdit) {
-        p.name = name;
-        p.price = price;
-        return p;
+        temp = [...temp,{id:p.id, name, price }];
       } else {
-        return p;
+        temp = [...temp,p];
       }
     });
+    // solution
+    // const newProduct = product.map(p => {
+    //   // TODO: 
+    //   if (p.id === isEdit) {
+    //     p.name = name;
+    //     p.price = price;
+    //     return p;
+    //   } else {
+    //     return p;
+    //   }
+    // });
     setIsEdit(0);
     setName('');
     setPrice(0);
-    setProduct(newProduct);  
+    // setProduct(newProduct);  
+    dispatch( setProduct(temp) );
     setBtnName("Add");
     setBtnStyle(defBtnColor);
     // add();
     //reset();
   }, [product, name, price, isEdit]);
-  const btnType = useCallback(() => {
+  const buttonHandler = useCallback(() => {
     console.log("isEdit Value", isEdit);
     if (isEdit) {     
       editProduct();       
@@ -104,6 +126,9 @@ const CreateProductScreen = () => {
       product
     }});
   },[product]);
+  const testing = (test)=>{
+    console.log(test);
+  }
   useEffect(() => {
 
   });
@@ -114,9 +139,20 @@ const CreateProductScreen = () => {
         <div className="text-lg text-center font-semibold italic text-blue-500 pt-4 pb-8 ">Trained By Arkar Mann Aung</div>
         <Input name="Product Name" setValue={setName} value={name} placeholder="Enter Product Name"/>
         <Input name="Product Price" setValue={setPrice} value={price} placeholder="Enter Product Price" /> 
-        <Button btnFunc={btnType} btnStyle={btnStyle} btnName={btnName} />
+        
+        <Button 
+          onClick={ buttonHandler }
+          style={ btnStyle } 
+          text={ btnName } 
+        />
+
         <button onClick={()=>dispatch(increment())}>{count}</button>
         <button onClick={()=>dispatch(addProduct())}>Add Product</button>
+        <br/>
+        <br/>
+        <br/>
+        <button onClick={ testing.bind('hello world') }>Bind Method</button>
+
         <div className="text-red-600 mt-5 italic font-bold animate-pulse">{ errMsg}</div>
         <p className="font-bold text-center text-lg py-5">Product List</p>
         { 
