@@ -4,8 +4,15 @@ import Product from "../components/Product";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Routes from "../route/RouteName";
+// 
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from '../store/reducer/counterSlice';
 
 const CreateProductScreen = () => {
+  // form store
+  const count = useSelector(state=>state.counter.value);
+  const dispatch = useDispatch();
+  // 
   const [product, setProduct] = useState([
     {id:1,name:'photo',price:0},
     {id:2,name:'photo',price:0},
@@ -98,8 +105,8 @@ const CreateProductScreen = () => {
 
         <Input name="Product Name" setValue={setName} value={name} placeholder="Enter Product Name"/>
         <Input name="Product Price" setValue={setPrice} value={price} placeholder="Enter Product Price" /> 
-        <Button btnState={isEdit} editProductFunc={editProduct} addProductFunc={add} />
-        {/* <Button onClick={btnType} /> */}
+        <Button btnState={isEdit} editProductFunc={editProduct} addProductFunc={add} /> 
+        <button onClick={()=>dispatch(increment())}>{count}</button>
         <div className="text-red-600 mt-5 italic font-bold animate-pulse">{ errMsg}</div>
         <p className="font-bold text-center text-lg py-5">Product List</p>
         { 
