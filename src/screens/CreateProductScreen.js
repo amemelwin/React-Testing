@@ -72,6 +72,10 @@ const CreateProductScreen = () => {
     setProduct(newProduct);   
     //reset();
   }, [product, name, price, isEdit]);
+  const btnType = useCallback(() => {
+    console.log("isEdit Value", isEdit);
+    isEdit ?  editProduct()  :  add() ;
+   }, [isEdit]);
   const sleep = ms => new Promise( _=>setInterval(_,ms) );
   const addQuantity = useCallback(()=>{
     navigate(Routes.addQty,{state: {
@@ -88,9 +92,14 @@ const CreateProductScreen = () => {
       <div className="flex-col items-center mt-16 justify-center">
         <div className="text-2xl text-center font-semibold ">React Hook Tutorial</div>
         <div className="text-lg text-center font-semibold italic text-blue-500 pt-4 pb-8 ">Trained By Arkar Mann Aung</div>
+        {/* <div className={`${product.id %2 === 0 ?"bg-blue-300":"bg-sky-400"} flex flex-row  pt-5 h-16 text-yellow-50 ${btnState === product.id?"opacity-50":"" } ${index === 0?"rounded-t-2xl":"" } ${index ===length-1?"rounded-b-2xl":""}`}>        */}
+                  {/* <button  onClick={() => btnState ?editProductFunc(): addProductFunc()} className={btnState === 0  ? " cursor-pointer px-5 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded" : " cursor-pointer px-5 bg-orange-500 hover:bg-orange-400 text-white font-bold py-2  border-b-4 border-orange-700 hover:border-orange-500 rounded"}> */}
+
+
         <Input name="Product Name" setValue={setName} value={name} placeholder="Enter Product Name"/>
         <Input name="Product Price" setValue={setPrice} value={price} placeholder="Enter Product Price" /> 
         <Button btnState={isEdit} editProductFunc={editProduct} addProductFunc={add} />
+        {/* <Button onClick={btnType} /> */}
         <div className="text-red-600 mt-5 italic font-bold animate-pulse">{ errMsg}</div>
         <p className="font-bold text-center text-lg py-5">Product List</p>
         { 
